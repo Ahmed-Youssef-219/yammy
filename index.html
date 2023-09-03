@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Yammy</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <header class="nav-container">
+      <!-- navbar content -->
+      <div class="nav-content-container">
+        <nav class="nav-items">
+          <ul>
+            <li><a>Search</a></li>
+            <li><a onclick="go_to_categories()">Categories</a></li>
+            <li><a onclick="go_to_areas()">Area</a></li>
+            <li><a onclick="go_to_ingredients()">Ingredients</a></li>
+            <li><a>Contact Us</a></li>
+          </ul>
+        </nav>
+        <div class="nav-footer">
+          <div>
+            <i class="fa-solid fa-globe"></i>
+            <i class="fa-solid fa-globe"></i>
+            <i class="fa-solid fa-globe"></i>
+          </div>
+          <p>Copyright Â© 2019 All Rights Reserved.</p>
+        </div>
+      </div>
+
+      <div class="nav-bar">
+        <img src="./assets/logo.png" alt="logo" />
+        <i id="menubars" class="fa-solid fa-bars" onclick="handleMenubar()"></i>
+        <div class="share-icons">
+          <i class="fa-solid fa-globe"></i>
+          <i class="fa-solid fa-share-nodes"></i>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-container">
+      <div class="cards-wrapper"></div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
