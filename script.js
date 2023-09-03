@@ -19,7 +19,6 @@ const fetching_data = async (url) => {
   try {
     const response = await fetch(url);
     data = await response.json();
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -43,7 +42,7 @@ const get_measures_ingredients = (meal) => {
     measureArray.push(`strMeasure${index}`);
   }
   for (let index = 0; index < ingredientArray.length; index++) {
-    if (meal[measureArray[index]] == " ") {
+    if (meal[measureArray[index]] == " " || meal[measureArray[index]] == "") {
       continue;
     } else {
       let recipe = `<div class="recipe">${meal[measureArray[index]]} ${
@@ -60,7 +59,7 @@ const get_tags = (meal) => {
   if (meal.strTags == null) {
     tagsArray = [];
   } else {
-    tagsArray = meal.strTags.split(", ");
+    tagsArray = meal.strTags.split(",");
   }
   let tagsCode = "";
   for (let index = 0; index < tagsArray.length; index++) {

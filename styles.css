@@ -308,6 +308,20 @@ a {
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 50 ;
 }
-.spinner_container img{
-  width: 200px;
+.spinner_container i{
+  font-size: 150px;
+  margin-top: 100px;
+  animation-duration: 0.8s;
+  animation-name: spin;
+  animation-iteration-count: infinite;
+  
 }
+
+@keyframes spin {
+  from{
+    rotate: 0deg;
+  } to{
+    rotate: 360deg;
+  }
+}
+
