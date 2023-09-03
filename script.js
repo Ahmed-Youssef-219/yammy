@@ -4,9 +4,14 @@ const navContainer = document.querySelector(".nav-container");
 const navContent = document.querySelector(".nav-content-container");
 const navItems = document.querySelectorAll(".nav-items ul li");
 const contentContainer = document.querySelector(".content-container");
+const nameSearch = document.getElementById('name_search');
+
+const inputs_wrapper = document.getElementById('inputs_wrapper')
+const letterSearch = document.getElementById('letter_search');
 const cardsWrapper = document.querySelector(
   ".content-container .cards-wrapper"
 );
+const spinner_container = document.querySelector('.spinner_container')
 
 let data;
 
@@ -66,12 +71,13 @@ const get_tags = (meal) => {
 };
 
 const go_to_meal_details = async (mealId) => {
+
+  spinner_container.style.display = 'flex';
   let url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
   await fetching_data(url);
 
-  contentContainer.innerHTML = " ";
+  cardsWrapper.innerHTML = " ";
   data.meals.forEach((meal) => {
-    console.log("hlooo");
     const htmlCode =
       '<div class="meal_details">' +
       '<div class="meal_details_image">' +
@@ -106,14 +112,17 @@ const go_to_meal_details = async (mealId) => {
       "</div>" +
       "</div>";
 
-    contentContainer.innerHTML += htmlCode;
+    cardsWrapper.innerHTML += htmlCode;
   });
+  spinner_container.style.display = 'none';
 };
 
 //======================== fetch food data from api to put it in the home page ===================
 const home_page = async () => {
-  const url = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
 
+  spinner_container.style.display = 'flex';
+
+  const url = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
   await fetching_data(url);
 
   cardsWrapper.innerHTML = " ";
@@ -128,14 +137,48 @@ const home_page = async () => {
 
     cardsWrapper.innerHTML += htmlCode;
   });
+  spinner_container.style.display = 'none';
 };
 
 home_page();
 
+// ============================== Search ===============================
+
+let searchQuery = '' ;
+const handleChange = async (event) => {
+  spinner_container.style.display = 'flex';
+  searchQuery = event.target.value
+  let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchQuery}`
+  await fetching_data(url);
+  data.meals.forEach((meal) => {
+    const htmlCode =
+      `<div class="card" onclick="go_to_meal_details(${meal.idMeal})">` +
+      `<img src=${meal.strMealThumb} alt="" />` +
+      `<div class="overlay">` +
+      `<h2>${meal.strMeal}</h2>` +
+      "</div>" +
+      "</div>";
+
+    cardsWrapper.innerHTML += htmlCode;
+  });
+  spinner_container.style.display = 'none';
+}
+
+const go_to_search = async () => {
+  spinner_container.style.display = 'flex';
+  inputs_wrapper.style.display = 'flex';
+  cardsWrapper.innerHTML = " ";
+  handleMenubar()
+  spinner_container.style.display = 'none';
+}
+
 // ============================= categories ============================
 const go_to_categories = async () => {
-  let url = "https://www.themealdb.com/api/json/v1/1/categories.php";
+  spinner_container.style.display = 'flex';
+  inputs_wrapper.style.display = 'none';
+  handleMenubar()
 
+  let url = "https://www.themealdb.com/api/json/v1/1/categories.php";
   await fetching_data(url);
 
   cardsWrapper.innerHTML = " ";
@@ -150,19 +193,20 @@ const go_to_categories = async () => {
       "</div>";
     cardsWrapper.innerHTML += htmlCode;
   });
+  spinner_container.style.display = 'none';
 };
 
 // =========== filter by category ============
 
 const filter_by_category = async (category) => {
+  spinner_container.style.display = 'flex';
   let url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
-
   await fetching_data(url);
 
   cardsWrapper.innerHTML = " ";
   data.meals.forEach((meal) => {
     const htmlCode =
-      '<div class="card">' +
+      `<div class="card" onclick="go_to_meal_details(${meal.idMeal})">` +
       `<img src=${meal.strMealThumb} alt="" />` +
       '<div class="overlay">' +
       `<h2>${meal.strMeal}</h2>` +
@@ -171,13 +215,17 @@ const filter_by_category = async (category) => {
 
     cardsWrapper.innerHTML += htmlCode;
   });
+  spinner_container.style.display = 'none';
 };
 
 // ============================= Areas ============================
 
 const go_to_areas = async () => {
-  let url = "https://www.themealdb.com/api/json/v1/1/list.php?a=list";
+  spinner_container.style.display = 'flex';
+  inputs_wrapper.style.display = 'none';
+  handleMenubar();
 
+  let url = "https://www.themealdb.com/api/json/v1/1/list.php?a=list";
   await fetching_data(url);
 
   cardsWrapper.innerHTML = " ";
@@ -189,17 +237,19 @@ const go_to_areas = async () => {
       "</div>";
     cardsWrapper.innerHTML += htmlCode;
   });
+  spinner_container.style.display = 'none';
 };
 // =========== filter by area ============
 const filter_by_area = async (area) => {
-  let url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  spinner_container.style.display = 'flex';
 
+  let url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
   await fetching_data(url);
 
   cardsWrapper.innerHTML = " ";
   data.meals.forEach((meal) => {
     const htmlCode =
-      '<div class="card">' +
+      `<div class="card" onclick="go_to_meal_details(${meal.idMeal})">` +
       `<img src=${meal.strMealThumb} alt="" />` +
       '<div class="overlay">' +
       `<h2>${meal.strMeal}</h2>` +
@@ -208,11 +258,17 @@ const filter_by_area = async (area) => {
 
     cardsWrapper.innerHTML += htmlCode;
   });
+  spinner_container.style.display = 'none';
 };
 
 // ============================= Ingredients ============================
 
 const go_to_ingredients = async () => {
+  spinner_container.style.display = 'flex';
+
+  inputs_wrapper.style.display = 'none';
+  handleMenubar();
+
   let url = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
   await fetching_data(url);
 
@@ -227,19 +283,21 @@ const go_to_ingredients = async () => {
 
     cardsWrapper.innerHTML += htmlCode;
   });
+  spinner_container.style.display = 'none';
 };
 
 // =========== filter by ingredient ============
 
 const filter_by_ingredient = async (ingredient) => {
-  let url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+  spinner_container.style.display = 'flex';
 
+  let url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   await fetching_data(url);
 
   cardsWrapper.innerHTML = " ";
   data.meals.forEach((meal) => {
     const htmlCode =
-      '<div class="card">' +
+      `<div class="card" onclick="go_to_meal_details(${meal.idMeal})">` +
       `<img src=${meal.strMealThumb} alt="" />` +
       '<div class="overlay">' +
       `<h2>${meal.strMeal}</h2>` +
@@ -248,4 +306,5 @@ const filter_by_ingredient = async (ingredient) => {
 
     cardsWrapper.innerHTML += htmlCode;
   });
+  spinner_container.style.display = 'none';
 };

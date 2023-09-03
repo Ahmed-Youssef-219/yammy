@@ -20,10 +20,10 @@
       <div class="nav-content-container">
         <nav class="nav-items">
           <ul>
-            <li><a>Search</a></li>
-            <li><a onclick="go_to_categories()">Categories</a></li>
-            <li><a onclick="go_to_areas()">Area</a></li>
-            <li><a onclick="go_to_ingredients()">Ingredients</a></li>
+            <li onclick="go_to_search()"><a>Search</a></li>
+            <li onclick="go_to_categories()"><a>Categories</a></li>
+            <li onclick="go_to_areas()"><a>Area</a></li>
+            <li onclick="go_to_ingredients()"><a>Ingredients</a></li>
             <li><a>Contact Us</a></li>
           </ul>
         </nav>
@@ -47,9 +47,18 @@
       </div>
     </header>
 
+    <div id="inputs_wrapper" class="inputs_wrapper">
+      <input id="name_search" type="search" placeholder="search by name" oninput="handleChange(event)" />
+      <input id="letter_search" type="search" placeholder="search by first letter" oninput="handleChange(event)" />
+    </div>
     <div class="content-container">
+      <div id="spinner_container" class="spinner_container">
+        <img src="./assets/spinner.gif" alt="">
+      </div>
       <div class="cards-wrapper"></div>
     </div>
+
+    
 
     <script src="./script.js"></script>
   </body>
