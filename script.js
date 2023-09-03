@@ -19,6 +19,7 @@ const fetching_data = async (url) => {
   try {
     const response = await fetch(url);
     data = await response.json();
+    console.log(data)
   } catch (error) {
     console.log(error);
   }
@@ -76,7 +77,7 @@ const go_to_meal_details = async (mealId) => {
   await fetching_data(url);
 
   cardsWrapper.innerHTML = " ";
-  data.meals.forEach((meal) => {
+  data.meals?.forEach((meal) => {
     const htmlCode =
       '<div class="meal_details">' +
       '<div class="meal_details_image">' +
@@ -148,13 +149,16 @@ const handleChange = async (event) => {
   spinner_container.style.display = 'flex';
   searchQuery = event.target.value;
   let url ;
+  console.log(event.target.id)
   if(event.target.id == "name_search"){
     url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchQuery}`
   }else{
     url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchQuery}`
   }
   await fetching_data(url);
-  data.meals.forEach((meal) => {
+
+  cardsWrapper.innerHTML = " ";
+  data.meals?.forEach((meal) => {
     const htmlCode =
       `<div class="card" onclick="go_to_meal_details(${meal.idMeal})">` +
       `<img src=${meal.strMealThumb} alt="" />` +
