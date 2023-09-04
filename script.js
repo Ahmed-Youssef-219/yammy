@@ -353,7 +353,7 @@ const go_to_contact = () => {
     '<div class="inputs_row">' +
     '<div>'+
     '<input id="password_input" type="password"  placeholder="Enter Your password" oninput="handle_form_inputs(event)" onchange="handle_form_inputs(event)">' +
-    '<div class="error_message">password Not Valide</div>' +
+    '<div class="error_message">(at least 8 characters, containing at least one uppercase letter, one lowercase letter, one digit, and one special character</div>' +
     '</div>'+
     '<div>'+
     '<input id="confirm_pass_input" type="password" placeholder="Repassword" oninput="handle_form_inputs(event)" onchange="handle_form_inputs(event)">' +
@@ -408,6 +408,12 @@ const validateForm = () => {
     error_messages[4].style.display = 'none'
   }else{
     error_messages[4].style.display = 'block'
+  }
+
+  if(confirm_pass_input.value.trim() == password_input.value.trim()){
+    error_messages[5].style.display = 'none'
+  }else{
+    error_messages[5].style.display = 'block'
   }
 
   if (
