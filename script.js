@@ -215,6 +215,7 @@ const go_to_categories = async () => {
 
 const filter_by_category = async (category) => {
   spinner_container.style.display = "flex";
+  inputs_wrapper.style.display = "none";
   let url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
   await fetching_data(url);
 
@@ -257,7 +258,7 @@ const go_to_areas = async () => {
 // =========== filter by area ============
 const filter_by_area = async (area) => {
   spinner_container.style.display = "flex";
-
+  inputs_wrapper.style.display = "none";
   let url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
   await fetching_data(url);
 
@@ -305,7 +306,7 @@ const go_to_ingredients = async () => {
 
 const filter_by_ingredient = async (ingredient) => {
   spinner_container.style.display = "flex";
-
+  inputs_wrapper.style.display = "none";
   let url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   await fetching_data(url);
 
@@ -326,7 +327,8 @@ const filter_by_ingredient = async (ingredient) => {
 
 // ============================= Ingredients ============================
 const go_to_contact = () => {
-  console.log("hellooooo");
+  inputs_wrapper.style.display = "none";
+  handleMenubar();
 
   const htmlCode =
     "<form>" +
